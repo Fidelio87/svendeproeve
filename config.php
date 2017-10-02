@@ -13,7 +13,7 @@ defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 defined('DB_SERVER') ? null : define('DB_SERVER', 'localhost');
 defined('DB_USER') ? null : define('DB_USER', 'root');
 defined('DB_PASS') ? null : define('DB_PASS', '');
-defined('DB_NAME') ? null : define('DB_NAME', 'bbb_magasin');
+defined('DB_NAME') ? null : define('DB_NAME', 'svendeproeve');
 
 defined('DEV_STATUS') ? null : define('DEV_STATUS', true);
 
@@ -30,7 +30,7 @@ if (DEV_STATUS) {
 
 require 'includes/functions.php';
 
-if (isset($_SESSION['user']['id'])) {
+if (isset($_SESSION['bruger']['id'])) {
     check_fingerprint();
     check_last_activity();
 }
