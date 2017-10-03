@@ -183,12 +183,12 @@ function fingerprint()
 
 
 /**
- * @param $brugernavn
- * @param $password
+ * @param string $brugernavn
+ * @param string $password
  *
  * @return bool
  */
-function login($brugernavn, $password)
+function login(string $brugernavn, string $password)
 {
     if (empty($brugernavn) || empty($password)) {
         alert('warning', 'Alle input-felter skal være udfyldte!');
@@ -216,23 +216,21 @@ function login($brugernavn, $password)
             query_error($query, __LINE__, __FILE__);
         }
 
-        if ($result->num_rows == 1) {
+        if ($result->num_rows === 1) {
             $row = $result->fetch_object();
 
             if (password_verify($password, $row->bruger_password)) {
                 session_regenerate_id();
 
                 $_SESSION['bruger']['id']           = $row->bruger_id;
-                $_SESSION['bruger']['brugernavn']   = $row->bruger_brugernavn;
+                $_SESSION['bruger']['navn']         = $row->bruger_brugernavn;
                 $_SESSION['bruger']['niveau']       = $row->rolle_niveau;
                 $_SESSION['fingerprint']            = fingerprint();
 
                 return true;
-            } else {
-                alert('warning', 'Password not correct');
             }
         } else {
-            alert('warning', 'Email or password not correct');
+            alert('warning', 'Brugernavn eller password er ikke korrekt(e)!');
         }
     }
     return false;
@@ -256,7 +254,7 @@ function logout()
  */
 function is_admin()
 {
-    return $_SESSION['bruger']['niveau'] <= 1000 ? true : false;
+    return $_SESSION['bruger']['niveau'] > 100 ? true : false;
 }
 
 /**
@@ -379,17 +377,12 @@ function redirect_to(string $location = null)
 
 function opret_bruger(
     $brugernavn,
-    $fornavn,
-    $efternavn,
     $beskrivelse,
     $password,
     $conf_password,
-    $tlf,
-    $email,
     $fil,
     $rolle = 1
-)
-{
+) {
 
     global $db;
     global $manager;
@@ -399,12 +392,6 @@ function opret_bruger(
         <p class="text-danger">Kodeordene skal være ens!</p>
         <?php
     } else {
-        //condition tlf tomt
-        if (!empty($tlf) && intval($tlf)) {
-            $tlf = $db->real_escape_string($tlf);
-        } else {
-            $tlf = 0000000;
-        }
         //condition beskrivelse tomt
         if (empty($beskrivelse)) {
             $beskrivelse = '';
@@ -418,18 +405,18 @@ function opret_bruger(
                         WHERE bruger_brugernavn = '$brugernavn'";
 
         $result_count = $db->query($query_count);
-        if (!$result_count) { query_error($query, __LINE__, __FILE__); }
+        if (!$result_count) { query_error($query_count, __LINE__, __FILE__); }
         $row_count    = $result_count->fetch_object();
 
-        //hvis bruger m identisk email
+        //hvis bruger m identisk brugernavn
         if ($row_count->antal > 0) {
             ?>
             <p class="text-warning">Brugernavnet <?php echo $brugernavn; ?> er desværre optaget. Prøv et nyt.</p>
             <?php
         } else {
             //mappehenvisninger
-            $img_dir = '../img/personer/';
-            $img_dir_thumbs = '../img/personer/thumbs/';
+            $img_dir = '../img/brugere/';
+            $img_dir_thumbs = '../img/brugere/thumbs/';
 
             //check om billede er valgt og ikke er tomt
             if (isset($fil) && !empty($fil['tmp_name'])) {
@@ -463,21 +450,13 @@ function opret_bruger(
 
             //opret insert-query
             $query = "INSERT INTO brugere (bruger_brugernavn,
-                                            bruger_fornavn,
-                                            bruger_efternavn,
                                             bruger_beskrivelse,
                                             bruger_password,
-                                            bruger_tlf,
-                                            bruger_email,
                                             bruger_img,
                                             fk_rolle_id) 
                       VALUES ('$brugernavn',
-                              '$fornavn',
-                              '$efternavn',
                               '$beskrivelse',
                               '$password_hashed',
-                              $tlf,
-                              '$email',
                               '$filnavn',
                               $rolle)";
             $result = $db->query($query);
@@ -488,8 +467,7 @@ function opret_bruger(
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                Bruger blev oprettet med succes.<a href="index.php?page=brugere">
-                    Klik her for at returnere til oversigten</a>
+                Profil oprettet.
             </div>
             <?php
         } //.slut email validering

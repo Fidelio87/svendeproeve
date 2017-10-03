@@ -2,6 +2,12 @@
 
 require '../config.php';
 
+include '../resources/vendor/autoload.php';
+
+use Intervention\Image\ImageManager;
+
+$manager = new ImageManager(array('driver' => 'gd'));
+
 if (isset($_GET['logout'])) {
     logout();
     redirect_to('index.php');
@@ -41,13 +47,26 @@ $side_titel = isset($side) ? $side->side_titel : 'HTTP 404';
 
         <!--    CONTENT-->
         <div class="row">
-            <?php
-            if (isset($side->side_include_filnavn) && file_exists('pages/' . $side->side_include_filnavn)) {
-                include 'pages/' . $side->side_include_filnavn;
-            } else {
-                redirect_to('404.php');
-            }
-            ?>
+            <div class="row">
+                <?php
+
+                echo '<h2>' . $side_titel . '</h2>';
+
+                if (isset($side->side_indhold) && $side_url !== '') {
+                    echo $side->side_indhold;
+                }
+
+                ?>
+            </div>
+           <div class="row">
+               <?php
+               if (isset($side->side_include_filnavn) && file_exists('pages/' . $side->side_include_filnavn)) {
+                   include 'pages/' . $side->side_include_filnavn;
+               } else {
+                   redirect_to('404.php');
+               }
+               ?>
+           </div>
         </div>
 
         <div class="row bg-warning">
