@@ -4,22 +4,6 @@ checkAccess();
 
 
 
-if (isset($_GET['status'])) {
-    $ny_vaerdi = $_GET['status'] === 1 ? 0 : 1;
-
-    $id = (int)$_GET['id'];
-    $query = 'UPDATE brugere SET bruger_status = ' . $ny_vaerdi . ' WHERE bruger_id = ' . $id;
-    $result = $db->query($query);
-
-    if (!$result) { query_error($query, __LINE__, __FILE__); }
-
-
-    set_log('opdater', 'bruger med id ' . $id . ' fik ændret status');
-
-    redirect_to('index.php?page=' . $side);
-
-}
-
 
 //SLET BRUGER
 if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
@@ -67,7 +51,6 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
             <th>Brugernavn</th>
             <th>Beskrivelse</th>
             <th>Rolle</th>
-            <th class="icon"></th>
             <th class="icon"><a href="index.php?page=opret-bruger"
                                 class="btn btn-success btn-xs"
                                 title="Opret ny bruger"><i class="fa fa-plus-square fa-lg fa-fw"></i></a></th>
@@ -98,39 +81,8 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
                 <tr<?php if ($bruger->bruger_id == $_SESSION['bruger']['id']) { echo ' class="info"'; } ?>>
                     <td align="left"><?php echo $bruger->bruger_oprettet_dansk; ?></td>
                     <td><?php echo $bruger->bruger_brugernavn; ?></td>
-                    <td><?php echo $bruger->beskrivelse_kort; ?></td>
+                    <td><?php echo $bruger->beskrivelse_kort; ?>...</td>
                     <td><?php echo $bruger->rolle_navn; ?></td>
-                    <td>
-                        <?php
-                        if ($bruger->bruger_id !== $bruger_id) {
-                            if ($bruger->bruger_status === 1) {
-                                ?>
-                                <a href="index.php?page=<?php
-                                echo $side;
-                                ?>&id=<?php
-                                echo $bruger->bruger_id;
-                                ?>&status=<?php
-                                echo $bruger->bruger_status;
-                                ?>"
-                                   title="Deaktivér bruger"><i class="fa fa-toggle-on fa-lg text-success "></i></a>
-                                <?php
-                            } else {
-                                ?>
-                                <a href="index.php?page=<?php
-                                echo $side;
-                                ?>&id=<?php
-                                echo $bruger->bruger_id;
-                                ?>&status=<?php
-                                echo $bruger->bruger_status;
-                                ?>"
-                                   title="Aktivér bruger"><i class="fa fa-toggle-on fa-lg fa-rotate-180 text-danger">
-
-                                    </i></a>
-                                <?php
-                            }
-                        }
-                        ?>
-                    </td>
                     <!--                    Slet ikon-->
                     <td><?php if ($bruger->bruger_id !== $_SESSION['bruger']['id']) {
                             ?>
