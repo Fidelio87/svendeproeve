@@ -70,28 +70,15 @@ $sider = [
         'vis'    => 0,
         'niveau' => 1000
     ],
-    'ansvar'             => [
-        'ikon'      => 'list-ol',
-        'titel'     => 'Ansvar',
-        'vis'       => 1,
-        'niveau'    => 1000,
-        'aktiv_paa' => ['ansvar']
-    ],
     'genrer'             => [
-        'ikon'      => 'dollar',
+        'ikon'      => 'list',
         'titel'     => 'Genrer',
         'vis'       => 1,
         'niveau'    => 1000,
-        'aktiv_paa' => ['genrer', 'opret-genre', 'rediger-genre']
-    ],
-    'opret-genre'        => [
-        'ikon'   => 'dollar',
-        'titel'  => 'Opret genre',
-        'vis'    => 0,
-        'niveau' => 1000
+        'aktiv_paa' => ['genrer', 'rediger-genre']
     ],
     'rediger-genre'      => [
-        'ikon'   => 'dollar',
+        'ikon'   => 'list',
         'titel'  => 'Rediger genre',
         'vis'    => 0,
         'niveau' => 1000

@@ -474,6 +474,65 @@ function opret_bruger(
     } //.slut password-validering
 } //.slut - function
 
+
+/**
+ * @param string $kunstner
+ * @param string $titel
+ * @param array  $fil
+ * @param int    $genre
+ * @param int    $pris
+ */
+function opret_album(string $kunstner, string $titel, array $fil, int $genre, int $pris)
+{
+
+    global $db;
+    global $manager;
+
+
+    //mappehenvisninger
+    $img_dir = '../img/albums/';
+    $img_dir_thumbs = '../img/albums/thumbs/';
+
+
+    //bliver brugt i queryen
+    $filnavn = time() . '_' . $db->real_escape_string($fil['name']);
+
+    $img = $manager->make($fil['tmp_name']);
+
+    //gemmer alm billede
+    $img->resize(200, 200);
+
+    $img->save($img_dir . $filnavn);
+
+    //gemmer thumbnail billede
+    $img->resize(50, 50);
+
+    $img->save($img_dir_thumbs . $filnavn);
+
+    //opret insert-query
+    $query = "INSERT INTO albums (album_kunstner, album_titel, album_img, fk_genre_id, fk_pris_id) 
+              VALUES ('$kunstner', '$titel', '$filnavn', $genre, $pris)";
+    $result = $db->query($query);
+
+    if (!$result) { query_error($query, __LINE__, __FILE__); }
+
+    ?>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        Album oprettet.
+    </div>
+    <?php
+
+    $sidste_album_id = $db->insert_id;
+
+
+    set_log('opret', 'Albummet med id ' . $sidste_album_id . ' blev oprettet');
+
+    // TODO basic validation
+}
+
+
 function rediger_bruger(
     $id,
     $brugernavn,

@@ -23,6 +23,8 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
         unlink('../img/personer/thumbs/' . $row->bruger_img);
     }
 
+    // TODO delete all related table entries
+
     $query = 'DELETE FROM brugere WHERE bruger_id = ' . $id;
 
     $result = $db->query($query);
@@ -50,6 +52,7 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
             <th align="right"><i class="fa fa-sort-numeric-desc fa-fw"></i> Oprettet</th>
             <th>Brugernavn</th>
             <th>Beskrivelse</th>
+            <th>Grunker</th>
             <th>Rolle</th>
             <th class="icon"><a href="index.php?page=opret-bruger"
                                 class="btn btn-success btn-xs"
@@ -66,8 +69,10 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
                           DATE_FORMAT(bruger_oprettet, '%e. %b %Y [%H:%i]') AS bruger_oprettet_dansk,
                           bruger_brugernavn,
                           SUBSTR(bruger_beskrivelse, 1, 30) as beskrivelse_kort,
-                          rolle_navn
+                          rolle_navn,
+                          konto_saldo
                           FROM brugere
+                          LEFT JOIN konti ON brugere.bruger_id = konti.fk_bruger_id
                           INNER JOIN roller on fk_rolle_id = rolle_id
                           AND rolle_niveau <= " . $rolle_niveau . "
                           ORDER BY bruger_oprettet DESC";
@@ -82,6 +87,7 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
                     <td align="left"><?php echo $bruger->bruger_oprettet_dansk; ?></td>
                     <td><?php echo $bruger->bruger_brugernavn; ?></td>
                     <td><?php echo $bruger->beskrivelse_kort; ?>...</td>
+                    <td><?php echo $bruger->konto_saldo; ?></td>
                     <td><?php echo $bruger->rolle_navn; ?></td>
                     <!--                    Slet ikon-->
                     <td><?php if ($bruger->bruger_id !== $_SESSION['bruger']['id']) {
