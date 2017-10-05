@@ -187,7 +187,8 @@ function fingerprint()
  *
  * @return bool
  */
-function setUserLogin(int $id) {
+function setUserLogin(int $id)
+{
     global $db;
 
     $query = 'UPDATE brugere SET bruger_sidste_login = NOW() WHERE bruger_id = ' . $id;
@@ -196,6 +197,9 @@ function setUserLogin(int $id) {
     if (!$result) { query_error($query, __LINE__, __FILE__); }
 
     if ($db->affected_rows > 0) {
+        set_log('info',
+            'Brugeren "' . $_SESSION['bruger']['navn']  . '" med id ' . $_SESSION['bruger']['id'] . ' loggede ind',
+            $_SESSION['bruger']['id']);
         return true;
     }
     return false;
@@ -212,7 +216,6 @@ function login(string $brugernavn, string $password)
     if (empty($brugernavn) || empty($password)) {
         alert('warning', 'Alle input-felter skal være udfyldte!');
     } else {
-
         global $db;
 
         $brugernavn = $db->escape_string($brugernavn);
@@ -231,7 +234,6 @@ function login(string $brugernavn, string $password)
 				bruger_status = 1";
         $result = $db->query($query);
 
-        // If result returns false, use the function query_error to show debugging info
         if (!$result) {
             query_error($query, __LINE__, __FILE__);
         }
@@ -247,7 +249,6 @@ function login(string $brugernavn, string $password)
                 $_SESSION['bruger']['niveau']       = $row->rolle_niveau;
                 $_SESSION['fingerprint']            = fingerprint();
 
-                set_log('info', 'Brugeren "' . $_SESSION['bruger']['navn']  . '" med id ' . $_SESSION['bruger']['id'] . ' loggede ind');
                 setUserLogin($_SESSION['bruger']['id']);
                 return true;
             }
@@ -385,8 +386,6 @@ function redirect_to(string $location = null)
  * @param     $conf_password
  * @param     $fil
  * @param int $rolle
- *
- * @return bool
  */
 function opret_bruger(
     $brugernavn,
@@ -407,7 +406,7 @@ function opret_bruger(
     } else {
         //condition beskrivelse tomt
         if (empty($beskrivelse)) {
-            $beskrivelse = '';
+            $beskrivelse = 'WIP';
         } else {
             $beskrivelse = $db->real_escape_string($beskrivelse);
         }
@@ -428,14 +427,14 @@ function opret_bruger(
             //mappehenvisninger
 
             //gør mappen relativ alt efter frontend/backend
-            if (strpos($_SERVER['REQUEST_URI'], "admin") !== false) {
-                $sti_prefix = '..';
+            if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false) {
+                $sti_prefix = '../';
             } else {
                 $sti_prefix = '';
             }
 
-            $img_dir = $sti_prefix . '/img/brugere/';
-            $img_dir_thumbs = $sti_prefix . '/img/brugere/thumbs/';
+            $img_dir = $sti_prefix . 'img/brugere/';
+            $img_dir_thumbs = $sti_prefix . 'img/brugere/thumbs/';
 
             //check om billede er valgt og ikke er tomt
             if (isset($fil) && !empty($fil['tmp_name'])) {
@@ -480,8 +479,21 @@ function opret_bruger(
                               $rolle)";
             $result = $db->query($query);
 
+            $sidste_bruger_id = $db->insert_id;
+
+            set_log('opret', 'Profil med id ' . $sidste_bruger_id . ' blev oprettet', $sidste_bruger_id);
+
+            if ($rolle === 1) {
+                $query_konto = 'INSERT INTO konti (konto_saldo, fk_bruger_id) VALUES (1500, ' . $sidste_bruger_id . ')';
+                $result_konto = $db->query($query_konto);
+                if (!$result_konto) { query_error($query_konto, __LINE__, __FILE__); }
+
+                $konto_insert_id = $db->insert_id;
+
+                set_log('opret', 'Der blev indsat 1500 grunker på en ny konto med id ' .  $konto_insert_id, 1);
+            }
+
             if (!$result) { query_error($query, __LINE__, __FILE__); }
-            return true;
             ?>
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -491,7 +503,6 @@ function opret_bruger(
             <?php
         } //.slut brugernavn-validering
     } //.slut password-validering
-    return false;
 } //.slut - function
 
 
@@ -770,8 +781,9 @@ function behandl_nyhedsbrev(string $email)
 /**
  * @param string $type
  * @param string $description
+ * @param int    $id
  */
-function set_log(string $type, string $description)
+function set_log(string $type, string $description, int $id)
 {
     global $db;
 
@@ -791,10 +803,12 @@ function set_log(string $type, string $description)
     }
 
     $description    = $db->real_escape_string($description);
-    $user_id        = (int)$_SESSION['bruger']['id'];
+    if (empty($id)) {
+        $id = $_SESSION['bruger']['id'];
+    }
 
     $query = "INSERT INTO logs (log_beskrivelse, fk_bruger_id, fk_log_type) 
-		      VALUES ('$description', $user_id, $event_type_id)";
+		      VALUES ('$description', $id, $event_type_id)";
     $result = $db->query($query);
 
     if (!$result) {

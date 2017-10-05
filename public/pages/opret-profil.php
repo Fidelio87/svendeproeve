@@ -1,22 +1,29 @@
 <?php
 
-
+if (DEV_STATUS) {
+    $lipsum = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+    Accusamus commodi maiores quos recusandae ullam. 
+Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. 
+Accusamus aliquam iure sunt!';
+} else {
+    $lipsum = '';
+}
 
 
 ?>
 
 
-<form method="post" action="" enctype="multipart/form-data" autocomplete="off">
+<form method="post" action="" enctype="multipart/form-data" autocomplete="off" role="form">
     <?php
     $brugernavn         = '';
-    $beskrivelse_tmp    = '';
-
+    $beskrivelse_tmp    = $lipsum;
 
 
     if (isset($_POST['opret_profil'])) {
         $brugernavn         = $db->real_escape_string($_POST['brugernavn']);
         $beskrivelse_tmp    = $_POST['beskrivelse'];
 //        $fk_rolle_id        = $db->real_escape_string($_POST['rolle']);
+
 
         opret_bruger(
             $brugernavn,
@@ -25,20 +32,6 @@
             $_POST['conf_password'],
             $_FILES['img']
         );
-
-        $sidste_bruger_id = $db->insert_id;
-
-
-        set_log('opret', 'Profil med id ' . $sidste_bruger_id . ' blev oprettet');
-
-
-        $query = 'INSERT INTO konti (konto_saldo, fk_bruger_id) VALUES (1500, ' . $sidste_bruger_id . ')';
-        $result = $db->query($query);
-        if (!$result) { query_error($query, __LINE__, __FILE__); }
-
-        $sidste_konto_id = $db->insert_id;
-
-        set_log('opret', 'Der blev overførst 1500 grunker til ny konto med id ' . $sidste_konto_id);
 
     }
 
