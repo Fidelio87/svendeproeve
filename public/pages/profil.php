@@ -18,7 +18,7 @@ if (isset($_SESSION['bruger']['id']) && !is_admin()) {
         <div class="col-md-4">
         <h4><?php echo $bruger->bruger_brugernavn; ?></h4>
         <?php echo $bruger->bruger_beskrivelse; ?>
-        <p><?php echo $bruger->konto_saldo; ?> <span class="text-info">Grunker</span></p>
+        <p>Du har <?php echo $bruger->konto_saldo; ?> <span class="text-info">Grunker</span> på din konto</p>
         </div>
 
         <div class="col-md-8">
@@ -40,7 +40,8 @@ if (isset($_SESSION['bruger']['id']) && !is_admin()) {
         <?php
     }
 } else {
-    alert('info', 'Det ser ud til, at du ingen profil har endnu. Opret venligst een <a href="?opret-profil">her</a>');
+    alert('info', 'Det ser ud til, at du ingen profil har endnu. 
+Opret venligst een <a class="text-success" href="?page=opret-profil">her</a>');
 }
 ?>
 

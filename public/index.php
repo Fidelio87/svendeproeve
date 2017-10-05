@@ -74,6 +74,24 @@ $side_titel = isset($side) ? $side->side_titel : 'HTTP 404';
                 <?php show_dev_info(); ?>
             </div>
         </div>
+        <!--                CKEDITOR-replace script-->
+        <script>
+            CKEDITOR.replace('ck_indhold', {
+                'language' : 'da',
+                'uiColor' : '#fff6da',
+                toolbarGroups: [
+                    {"name":"basicstyles","groups":["basicstyles"]},
+                    {"name":"links","groups":["links"]},
+                    {"name":"paragraph","groups":["list","blocks"]},
+//                    {"name":"document","groups":["mode"]},
+//                    {"name":"insert","groups":["insert"]},
+                    {"name":"styles","groups":["styles"]}
+                ],
+                // Remove the redundant buttons from toolbar groups defined above.
+                removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+            });
+
+        </script>
 
         <?php include 'includes/footer.inc.php'; ?>
     </div> <!--..Main container-->

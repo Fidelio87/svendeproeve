@@ -1,11 +1,5 @@
 <?php
 
-if (isset($_GET['sort'])) {
-    $sort= $db->real_escape_string($_GET['sort']);
-} else {
-    $sort = '';
-}
-
 
 
 $albums_pr_side = 5;
@@ -26,25 +20,71 @@ $total_albums = ceil($album_antal/$albums_pr_side);
 
 $offset = ($nuv_side - 1) * $albums_pr_side;
 
+
+//kan ikke komme kolonnenavne som key,
+// da det ville vises i URL'en !
+
+$sort_array =   [
+                    'kunstner'  => 'Kunstner',
+                    'album'     => 'Album',
+                    'genre'     => 'Genre',
+                    'nyeste'    => 'Nyeste'
+                ]
+
+
 ?>
 
     <div class="row text-center">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <span>Sorter efter</span>
             <ul class="nav nav-pills">
-                <li class="presentation">
-                    <a href="index.php?page=<?php echo $side_url;?><?php if (isset($_GET['side_nr'])) {
-                        echo '&side_nr' . $_GET['side_nr'];
-                    } ?>&sort=1">Test</a>
+
+                    <?php
+                    
+                    foreach ($sort_array as $key => $value) {
+                        ?>
+                <li class="presentation <?php if (isset($_GET['sort']) && ($_GET['sort'] == $key)) {
+                    echo 'active'; } ?>">
+                    <a href="index.php?page=<?php
+                    echo $side_url; ?>&sort=<?php
+                    echo $key; ?><?php if (isset($nuv_side)) {
+                        echo '&side_nr=' . $nuv_side; } ?>"><?php
+                        echo $value; ?></a>
                 </li>
+                    <?php
+                    }
+                    
+                    ?>
+
             </ul>
         </div>
     </div>
 
 <?php
 
+if (isset($_GET['sort'])) {
+    $sort_url = $_GET['sort'];
 
-
+    switch ($sort_url) {
+        case 'kunstner':
+            $sort_sql = 'album_kunstner ';
+            break;
+        case 'genre':
+            $sort_sql = ' genre_navn ';
+            break;
+        case 'nyeste':
+            $sort_sql = 'album_oprettet ';
+            break;
+        case 'album':
+            $sort_sql = 'album_titel ';
+            break;
+        default:
+            //$sort_sql = 'album_titel ';
+            alert('warning', 'Vi kunne ikke genkende din sortering, prøv med linksne istedet');
+    }
+} else {
+    $sort_sql = 'album_titel ';
+}
 
 $query  = 'SELECT   album_id, 
                     album_kunstner, 
@@ -57,7 +97,7 @@ $query  = 'SELECT   album_id,
           FROM albums 
           INNER JOIN priser ON albums.fk_pris_id = priser.id
           INNER JOIN genrer ON albums.fk_genre_id = genrer.genre_id
-          ORDER BY album_titel
+          ORDER BY ' . $sort_sql . '
           LIMIT ' . $albums_pr_side . ' OFFSET ' . $offset;
 $result = $db->query($query);
 
@@ -91,7 +131,9 @@ while ($row = $result->fetch_object()) {
         for ($i = 1; $i <= $total_albums; $i++) {
             ?>
             <li <?php if ($nuv_side === $i) { echo 'class="active"'; } ?>>
-                <a href="?page=musikbutikken&side_nr=<?php echo $i; ?>"><?php echo $i; ?></a>
+                <a href="?page=musikbutikken&side_nr=<?php echo $i; ?><?php if (isset($_GET['sort'])) {
+                    echo '&sort=' . $_GET['sort'];
+                } ?>"><?php echo $i; ?></a>
             </li>
         <?php
         }
@@ -100,6 +142,3 @@ while ($row = $result->fetch_object()) {
 
     </ul>
 </div>
-
-
-

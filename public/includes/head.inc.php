@@ -15,4 +15,8 @@
     <link href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <!--FA CDN-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--    CKEDITOR-->
+    <script src="../resources/vendor/ckeditor/ckeditor/ckeditor.js"></script>
+
+    <link rel="stylesheet" href="../resources/vendor/ckeditor/ckeditor/styles.js">
 </head>

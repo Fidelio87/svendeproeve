@@ -378,6 +378,16 @@ function redirect_to(string $location = null)
 }
 
 
+/**
+ * @param     $brugernavn
+ * @param     $beskrivelse
+ * @param     $password
+ * @param     $conf_password
+ * @param     $fil
+ * @param int $rolle
+ *
+ * @return bool
+ */
 function opret_bruger(
     $brugernavn,
     $beskrivelse,
@@ -413,13 +423,19 @@ function opret_bruger(
 
         //hvis bruger m identisk brugernavn
         if ($row_count->antal > 0) {
-            ?>
-            <p class="text-warning">Brugernavnet <?php echo $brugernavn; ?> er desværre optaget. Prøv et nyt.</p>
-            <?php
+            alert('danger', 'Brugernavnet ' .  $brugernavn . ' er desværre optaget. Prøv et nyt!');
         } else {
             //mappehenvisninger
-            $img_dir = '../img/brugere/';
-            $img_dir_thumbs = '../img/brugere/thumbs/';
+
+            //gør mappen relativ alt efter frontend/backend
+            if (strpos($_SERVER['REQUEST_URI'], "admin") !== false) {
+                $sti_prefix = '..';
+            } else {
+                $sti_prefix = '';
+            }
+
+            $img_dir = $sti_prefix . '/img/brugere/';
+            $img_dir_thumbs = $sti_prefix . '/img/brugere/thumbs/';
 
             //check om billede er valgt og ikke er tomt
             if (isset($fil) && !empty($fil['tmp_name'])) {
@@ -465,7 +481,7 @@ function opret_bruger(
             $result = $db->query($query);
 
             if (!$result) { query_error($query, __LINE__, __FILE__); }
-
+            return true;
             ?>
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -475,6 +491,7 @@ function opret_bruger(
             <?php
         } //.slut brugernavn-validering
     } //.slut password-validering
+    return false;
 } //.slut - function
 
 
@@ -747,18 +764,6 @@ function behandl_nyhedsbrev(string $email)
         $db->query($query);
         alert('success', 'Du er nu tilmeldt nyhedsbrevet');
     }
-}
-
-/**
- * @param int $artikel_id
- */
-function set_artikel_visning(int $artikel_id)
-{
-    global $db;
-    $query = "UPDATE artikler SET artikel_visninger = artikel_visninger + 1  WHERE artikel_id = $artikel_id";
-    $result = $db->query($query);
-
-    if (!$result) { query_error($query, __LINE__, __FILE__); }
 }
 
 
