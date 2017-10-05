@@ -16,17 +16,19 @@ if (isset($_SESSION['bruger']['id']) && !is_admin()) {
     while ($bruger = $result->fetch_object()) {
         ?>
         <div class="col-md-4">
-        <h4><?php echo $bruger->bruger_brugernavn; ?></h4>
-        <?php echo $bruger->bruger_beskrivelse; ?>
-        <p>Du har <?php echo $bruger->konto_saldo; ?> <span class="text-info">Grunker</span> på din konto</p>
+            <h4><?php echo $bruger->bruger_brugernavn; ?></h4>
+            <?php echo $bruger->bruger_beskrivelse; ?>
+            <p>Du har <?php echo $bruger->konto_saldo; ?> <span class="text-info">Grunker</span> på din konto</p>
+            <a href="index.php?page=rediger-profil&id=<?php echo $bruger->bruger_id; ?>" class="btn btn-warning">
+                <i class="fa fa-cog fa-fw"></i> Redigér profil
+            </a>
         </div>
-
         <div class="col-md-8">
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6">
                 <img src="img/brugere/<?php echo $bruger->bruger_img; ?>" alt="" class="img-responsive">
             </div>
-            <div class="col-md-6">
-                <a href="?page=anmeldelser&bruger_id=<?php echo 2;?>"> Læs anmeldelser</a>
+            <div class="col-sm-12 col-md-6">
+                <a href="?page=anmeldelser&bruger_id=<?php echo $bruger->bruger_id; ?>"> Læs anmeldelser</a>
                 <h4>Seneste køb</h4>
                 <ul class="list-group">
                     <li class="list-group-item">Cras justo odio</li>
@@ -35,14 +37,16 @@ if (isset($_SESSION['bruger']['id']) && !is_admin()) {
                     <li class="list-group-item">Porta ac consectetur ac</li>
                     <li class="list-group-item">Vestibulum at eros</li>
                 </ul>
-            </div>
+        </div>
         </div>
         <?php
     }
 } else {
     alert('info', 'Det ser ud til, at du ingen profil har endnu. 
-Opret venligst een <a class="text-success" href="?page=opret-profil">her</a>');
+Opret venligst een <a class="btn btn-info text-success" href="?page=opret-profil"><i class="fa fa-user-plus fa-fw"></i> her</a>');
 }
 ?>
+
+
 
 

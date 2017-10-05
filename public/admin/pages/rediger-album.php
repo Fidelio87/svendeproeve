@@ -117,7 +117,7 @@ $row = $result->fetch_object();
 
     <div class="form-group">
         <div class="btn-group">
-            <button name="rediger_album" class="btn btn-primary">
+            <button name="rediger_album" type="submit" class="btn btn-primary">
                 <i class="fa fa-floppy-o fa-fw"></i> Rediger
             </button>
         </div>
