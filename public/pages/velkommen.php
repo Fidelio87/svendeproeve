@@ -43,7 +43,7 @@ $sidste_mnd = date('F', strtotime('-1 month'));
     <h2>Albums</h2>
 
     <?php
-    $query      = 'SELECT RAND() FROM albums LIMIT 3';
+    $query      = 'SELECT album_id, album_kunstner, album_titel, album_img FROM albums ORDER BY RAND() LIMIT 3';
     $result     = $db->query($query);
     if (!$result) {
         query_error($query, __LINE__, __FILE__);
@@ -51,8 +51,20 @@ $sidste_mnd = date('F', strtotime('-1 month'));
 
     while ($row = $result->fetch_object()) {
             ?>
-        <a href="#" class="thumbnail"><img src="" class="thumbnail" alt=""></a>
-        <hr>
+
+<!--        TODO fix AJAX og styling-->
+
+        <div class="media">
+            <div class="media-left">
+                <a href="?page=album&id=<?php echo $row->album_id; ?>">
+                    <img class="media-object" src="img/albums/thumbs/<?php echo $row->album_img; ?>" alt="">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4><?php echo $row->album_kunstner; ?></h4>
+                <em><?php echo $row->album_titel; ?></em>
+            </div>
+        </div>
     <?php
     }
     ?>

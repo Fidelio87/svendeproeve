@@ -183,6 +183,25 @@ function fingerprint()
 
 
 /**
+ * @param int $id
+ *
+ * @return bool
+ */
+function setUserLogin(int $id) {
+    global $db;
+
+    $query = 'UPDATE brugere SET bruger_sidste_login = NOW() WHERE bruger_id = ' . $id;
+    $result = $db->query($query);
+
+    if (!$result) { query_error($query, __LINE__, __FILE__); }
+
+    if ($db->affected_rows > 0) {
+        return true;
+    }
+    return false;
+}
+
+/**
  * @param string $brugernavn
  * @param string $password
  *
@@ -193,6 +212,7 @@ function login(string $brugernavn, string $password)
     if (empty($brugernavn) || empty($password)) {
         alert('warning', 'Alle input-felter skal være udfyldte!');
     } else {
+
         global $db;
 
         $brugernavn = $db->escape_string($brugernavn);
@@ -227,6 +247,8 @@ function login(string $brugernavn, string $password)
                 $_SESSION['bruger']['niveau']       = $row->rolle_niveau;
                 $_SESSION['fingerprint']            = fingerprint();
 
+                set_log('info', 'Brugeren "' . $_SESSION['bruger']['navn']  . '" med id ' . $_SESSION['bruger']['id'] . ' loggede ind');
+                setUserLogin($_SESSION['bruger']['id']);
                 return true;
             }
         } else {
@@ -235,6 +257,7 @@ function login(string $brugernavn, string $password)
     }
     return false;
 }
+
 
 /**
  * Delete the sessions from login and give the session a new id
@@ -340,27 +363,7 @@ function send_mail($to, $subject, $message, $from, $from_name)
     return mail($to, $subject, $message, $headers);
 }
 
-function fetch_array($result)
-{
-    return mysqli_fetch_array($result);
-}
 
-function num_rows($result)
-{
-    return mysqli_num_rows($result);
-}
-
-function insert_id()
-{
-    global $db;
-    return mysqli_insert_id($db);
-}
-
-function affected_rows()
-{
-    global $db;
-    return mysqli_affected_rows($db);
-}
 
 /**
  * Short helper function for URL redirecting
@@ -528,6 +531,74 @@ function opret_album(string $kunstner, string $titel, array $fil, int $genre, in
 
 
     set_log('opret', 'Albummet med id ' . $sidste_album_id . ' blev oprettet');
+
+    // TODO basic validation
+}
+
+function rediger_album(string $id, string $kunstner, string $titel, array $fil = null, int $genre, int $pris)
+{
+
+    global $db;
+    global $manager;
+
+    if (isset($fil) && !empty($fil['tmp_name'])) {
+        //mappehenvisninger
+        $img_dir = '../img/albums/';
+        $img_dir_thumbs = '../img/albums/thumbs/';
+
+        $query_gl_img  = 'SELECT album_id, album_img FROM albums WHERE album_id = ' . $id;
+        $result_gl_img = $db->query($query_gl_img);
+        $row_gl = $result_gl_img->fetch_object();
+        if (!$result_gl_img) {
+            query_error($query_gl_img, __LINE__, __FILE__);
+        }
+
+        if (file_exists('../img/albums/' . $row_gl->album_img) &&
+            file_exists('../img/albums/thumbs' . $row_gl->album_img)) {
+            unlink($img_dir . $row_gl->album_img);
+            unlink($img_dir_thumbs . $row_gl->album_img);
+        }
+
+        //bliver brugt i queryen
+        $filnavn = time() . '_' . $db->real_escape_string($fil['name']);
+
+        $img_sql = ', album_img = "' . $filnavn . '"';
+
+        $img = $manager->make($fil['tmp_name']);
+
+        //gemmer alm billede
+        $img->fit(200, 200);
+
+        $img->save($img_dir . $filnavn);
+
+        //gemmer thumbnail billede
+        $img->fit(50, 50);
+
+        $img->save($img_dir_thumbs . $filnavn);
+    } else {
+        $img_sql = '';
+    }
+
+    //opret insert-query
+    $query = "UPDATE albums SET album_kunstner = '$kunstner',
+                                album_titel = '$titel',
+                                fk_genre_id = $genre,
+                                fk_pris_id = $pris
+                                $img_sql
+                WHERE album_id = $id";
+    $result = $db->query($query);
+
+    if (!$result) { query_error($query, __LINE__, __FILE__); }
+
+    ?>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        Album redigeret.
+    </div>
+    <?php
+
+    set_log('opdater', 'Albummet med id ' . $id . ' blev redigeret');
 
     // TODO basic validation
 }

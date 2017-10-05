@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2017 at 10:04 AM
+-- Generation Time: Oct 04, 2017 at 11:44 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -54,12 +54,39 @@ INSERT INTO `adresser` (`id`, `navn`, `gade`, `husnr`, `postnr`, `bynavn`, `tlf`
 
 CREATE TABLE `albums` (
   `album_id` mediumint(8) UNSIGNED NOT NULL,
+  `album_oprettet` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `album_kunstner` varchar(64) NOT NULL,
   `album_titel` varchar(128) NOT NULL,
-  `album_oprettet` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `album_img` varchar(255) DEFAULT NULL,
   `fk_genre_id` mediumint(8) UNSIGNED DEFAULT NULL,
   `fk_pris_id` tinyint(3) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `albums`
+--
+
+INSERT INTO `albums` (`album_id`, `album_oprettet`, `album_kunstner`, `album_titel`, `album_img`, `fk_genre_id`, `fk_pris_id`) VALUES
+(4, '2017-10-04 11:52:46', 'Shakira', 'Oral Fixation 2', '1507117966_shakira.jpg', 1, 2),
+(5, '2017-10-04 11:53:32', 'Red Hot Chili Peppers', 'Stadium Arcadium', '1507118012_StadiumArcadium.jpg', 2, 3),
+(6, '2017-10-04 11:54:20', 'Gnarls Barkley', 'St. Elsewhere', '1507118060_Gnarls_Barkley.jpg', 1, 2),
+(7, '2017-10-04 11:54:58', 'Niels Skousen', 'Daddy Longleg', '1507118098_SkousenDaddyLongleg.jpg', 3, 1),
+(8, '2017-10-04 11:55:27', 'Knopfler & Harris', 'All The Roadrunning', '1507118127_KnopflerHarrisRoadrunning.jpg', 1, 2),
+(9, '2017-10-04 11:56:02', 'Bruce Springsteen', 'We Shall Overcome The Seeger Sessions', '1507118162_SpringsteenOvercome.jpg', 4, 2),
+(10, '2017-10-04 11:56:34', 'Johnson', 'Det Passer', '1507118194_JohnsonPasser.jpg', 7, 2),
+(11, '2017-10-04 11:57:23', 'Diverse Artister', 'Eurovision Song Contest 2006', '1507118243_Eurovision.jpg', 1, 1),
+(12, '2017-10-04 11:58:34', 'Danser Med Drenge', 'Vores Bedste', '1507118314_DanserMedBedste.jpg', 3, 2),
+(13, '2017-10-04 11:59:03', 'Koppel Thomas', 'Improvisationer For Klaver', '1507118343_KoppelImprovisationer.jpg', 6, 2),
+(14, '2017-10-04 11:59:33', 'Roy Orbison', 'The Very Best Of', '1507118373_OrbisonBestOf.jpg', 1, 2),
+(15, '2017-10-04 11:59:56', 'Juanes', 'Mi Sangre', '1507118396_JuanesMiSangre.jpg', 5, 2),
+(16, '2017-10-04 12:00:39', 'Rasmus Nøhr', 'Lykkelig Smutning', '1507118439_RasmusNohrSmutning.jpg', 3, 2),
+(17, '2017-10-04 12:01:01', 'Sidsel', 'Where Are My Shoes', '1507118461_SidselWhereShoes.jpg', 3, 2),
+(18, '2017-10-04 12:01:29', 'Crazy Frog', 'More Crazy hits', '1507118489_CrazyFrogMore.jpg', 1, 2),
+(19, '2017-10-04 12:01:50', 'Madonna', 'Confessions On A Dancefloor', '1507118510_MadonnaConfessions.jpg', 1, 2),
+(20, '2017-10-04 12:02:08', 'Bryan Rice', 'Confessional', '1507118528_BryanRice.jpg', 1, 2),
+(21, '2017-10-04 12:02:33', 'Michael Bublé', 'It\'s time', '1507118553_Buble.jpg', 1, 2),
+(22, '2017-10-04 12:02:54', 'TV2', 'De Første Kærester På Månen', '1507118574_TV2.jpg', 3, 2),
+(23, '2017-10-04 12:03:13', 'Kelly Clarkson', 'Breakaway', '1507118593_Clarkson.jpg', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -69,11 +96,11 @@ CREATE TABLE `albums` (
 
 CREATE TABLE `anmeldelser` (
   `id` mediumint(8) UNSIGNED NOT NULL,
+  `oprettet` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(1) UNSIGNED NOT NULL,
   `overskrift` mediumtext NOT NULL,
   `tekst` text NOT NULL,
   `link` varchar(255) DEFAULT '#',
-  `oprettet` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fk_bruger_id` mediumint(8) UNSIGNED DEFAULT NULL,
   `fk_album_id` mediumint(8) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -88,6 +115,7 @@ CREATE TABLE `brugere` (
   `bruger_id` mediumint(8) UNSIGNED NOT NULL,
   `bruger_status` tinyint(1) UNSIGNED DEFAULT '1',
   `bruger_oprettet` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bruger_sidste_login` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `bruger_brugernavn` varchar(50) NOT NULL,
   `bruger_beskrivelse` text,
   `bruger_password` varchar(255) NOT NULL,
@@ -99,8 +127,9 @@ CREATE TABLE `brugere` (
 -- Dumping data for table `brugere`
 --
 
-INSERT INTO `brugere` (`bruger_id`, `bruger_status`, `bruger_oprettet`, `bruger_brugernavn`, `bruger_beskrivelse`, `bruger_password`, `bruger_img`, `fk_rolle_id`) VALUES
-(1, 1, '2017-10-02 19:10:51', 'admin', 'lorem ipsum dolor sit amet', '$2y$10$1X9ITA0jvKlr9ZeY9QWnVu5EpIJ02S94/TTLbYelGNOgnvWaCKpm.', NULL, 2);
+INSERT INTO `brugere` (`bruger_id`, `bruger_status`, `bruger_oprettet`, `bruger_sidste_login`, `bruger_brugernavn`, `bruger_beskrivelse`, `bruger_password`, `bruger_img`, `fk_rolle_id`) VALUES
+(1, 1, '2017-10-02 19:10:51', '2017-10-04 19:11:53', 'admin', 'all hail the admin', '$2y$10$1X9ITA0jvKlr9ZeY9QWnVu5EpIJ02S94/TTLbYelGNOgnvWaCKpm.', NULL, 2),
+(2, 1, '2017-10-04 09:11:39', '2017-10-04 19:54:43', 'Pelle', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$Vggoka7PkifC.qOGK.PERebLsQ1yK25iDz85SDEbIg0AWJcArDwKW', '1507108299_nerd.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -149,9 +178,16 @@ CREATE TABLE `kontakt` (
 
 CREATE TABLE `konti` (
   `konto_id` mediumint(8) UNSIGNED NOT NULL,
-  `konto_saldo` tinyint(128) UNSIGNED NOT NULL,
+  `konto_saldo` int(10) UNSIGNED NOT NULL,
   `fk_bruger_id` mediumint(8) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `konti`
+--
+
+INSERT INTO `konti` (`konto_id`, `konto_saldo`, `fk_bruger_id`) VALUES
+(1, 1500, 2);
 
 -- --------------------------------------------------------
 
@@ -166,6 +202,47 @@ CREATE TABLE `logs` (
   `fk_bruger_id` mediumint(8) UNSIGNED DEFAULT NULL,
   `fk_log_type` tinyint(3) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`log_id`, `log_tid`, `log_beskrivelse`, `fk_bruger_id`, `fk_log_type`) VALUES
+(1, '2017-10-04 08:57:35', 'Brugeren med id 3 blev oprettet', 1, 1),
+(2, '2017-10-04 08:57:35', 'Brugeren med id 3 fik overførst 1500 grunker til sin nye konto', 1, 1),
+(3, '2017-10-04 09:11:39', 'Brugeren med id 2 blev oprettet', 1, 1),
+(4, '2017-10-04 09:11:39', 'Brugeren med id 2 fik overførst 1500 grunker til sin nye konto', 1, 1),
+(8, '2017-10-04 11:21:48', 'Albummet med id 1 blev oprettet', 1, 1),
+(9, '2017-10-04 11:43:25', 'Albummet med id 2 blev oprettet', 1, 1),
+(10, '2017-10-04 11:49:31', 'Albummet med id 3 blev oprettet', 1, 1),
+(11, '2017-10-04 11:49:37', 'Et album blev slettet', 1, 3),
+(12, '2017-10-04 11:52:46', 'Albummet med id 4 blev oprettet', 1, 1),
+(13, '2017-10-04 11:53:33', 'Albummet med id 5 blev oprettet', 1, 1),
+(14, '2017-10-04 11:54:20', 'Albummet med id 6 blev oprettet', 1, 1),
+(15, '2017-10-04 11:54:58', 'Albummet med id 7 blev oprettet', 1, 1),
+(16, '2017-10-04 11:55:27', 'Albummet med id 8 blev oprettet', 1, 1),
+(17, '2017-10-04 11:56:02', 'Albummet med id 9 blev oprettet', 1, 1),
+(18, '2017-10-04 11:56:34', 'Albummet med id 10 blev oprettet', 1, 1),
+(19, '2017-10-04 11:57:23', 'Albummet med id 11 blev oprettet', 1, 1),
+(20, '2017-10-04 11:58:34', 'Albummet med id 12 blev oprettet', 1, 1),
+(21, '2017-10-04 11:59:03', 'Albummet med id 13 blev oprettet', 1, 1),
+(22, '2017-10-04 11:59:33', 'Albummet med id 14 blev oprettet', 1, 1),
+(23, '2017-10-04 11:59:56', 'Albummet med id 15 blev oprettet', 1, 1),
+(24, '2017-10-04 12:00:39', 'Albummet med id 16 blev oprettet', 1, 1),
+(25, '2017-10-04 12:01:02', 'Albummet med id 17 blev oprettet', 1, 1),
+(26, '2017-10-04 12:01:29', 'Albummet med id 18 blev oprettet', 1, 1),
+(27, '2017-10-04 12:01:50', 'Albummet med id 19 blev oprettet', 1, 1),
+(28, '2017-10-04 12:02:08', 'Albummet med id 20 blev oprettet', 1, 1),
+(29, '2017-10-04 12:02:33', 'Albummet med id 21 blev oprettet', 1, 1),
+(30, '2017-10-04 12:02:54', 'Albummet med id 22 blev oprettet', 1, 1),
+(31, '2017-10-04 12:03:13', 'Albummet med id 23 blev oprettet', 1, 1),
+(32, '2017-10-04 13:34:59', 'Albummet med id 24 blev oprettet', 1, 1),
+(42, '2017-10-04 18:27:35', 'Et album blev slettet', 1, 3),
+(43, '2017-10-04 18:29:27', 'Albummet med id 0 blev redigeret', 1, 2),
+(48, '2017-10-04 19:11:53', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(50, '2017-10-04 19:34:09', 'Albummet med id 21 blev redigeret', 1, 2),
+(51, '2017-10-04 19:40:59', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(52, '2017-10-04 19:54:43', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -316,9 +393,9 @@ INSERT INTO `tidspunkter` (`tidspunkt_id`, `tidspunkt_ugedag`, `tidspunkt_tid_fr
 
 CREATE TABLE `transaktioner` (
   `id` int(10) UNSIGNED NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fk_konto_id` mediumint(8) UNSIGNED DEFAULT NULL,
-  `fk_album_id` mediumint(8) UNSIGNED DEFAULT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fk_album_id` mediumint(8) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -440,7 +517,7 @@ ALTER TABLE `adresser`
 -- AUTO_INCREMENT for table `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `album_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `album_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `anmeldelser`
 --
@@ -450,7 +527,7 @@ ALTER TABLE `anmeldelser`
 -- AUTO_INCREMENT for table `brugere`
 --
 ALTER TABLE `brugere`
-  MODIFY `bruger_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bruger_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `genrer`
 --
@@ -465,12 +542,12 @@ ALTER TABLE `kontakt`
 -- AUTO_INCREMENT for table `konti`
 --
 ALTER TABLE `konti`
-  MODIFY `konto_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `konto_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT for table `log_typer`
 --

@@ -61,8 +61,10 @@ if (isset($_POST['submit_login']) && login($_POST['brugernavn'], $_POST['passwor
                         <a href="admin/index.php" class="nav-link"><i class="fa fa-lock fa-fw"></i> Gå til adminside</a>
                         <?php
                         }
+
                         ?></p>
-                    
+                    <a href="?logout" class="btn btn-danger"><i class="fa fa-chain-broken fa-fw"></i> Log ud</a>
+
                 <?php
                 }
                 ?>

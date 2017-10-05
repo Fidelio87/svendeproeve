@@ -49,7 +49,7 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
     <table class="table table-hover table-striped">
         <thead>
         <tr>
-            <th align="right"><i class="fa fa-sort-numeric-desc fa-fw"></i> Oprettet</th>
+            <th align="right"><i class="fa fa-sort-numeric-desc fa-fw"></i> Sidste login</th>
             <th>Brugernavn</th>
             <th>Beskrivelse</th>
             <th>Grunker</th>
@@ -66,7 +66,7 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
 
         $query = "SELECT  bruger_id,
                           bruger_status,
-                          DATE_FORMAT(bruger_oprettet, '%e. %b %Y [%H:%i]') AS bruger_oprettet_dansk,
+                          DATE_FORMAT(bruger_sidste_login, '%e. %b %Y [%H:%i]') AS sidste_login,
                           bruger_brugernavn,
                           SUBSTR(bruger_beskrivelse, 1, 30) as beskrivelse_kort,
                           rolle_navn,
@@ -84,7 +84,7 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
             while ($bruger = $result->fetch_object()) {
                 ?>
                 <tr<?php if ($bruger->bruger_id == $_SESSION['bruger']['id']) { echo ' class="info"'; } ?>>
-                    <td align="left"><?php echo $bruger->bruger_oprettet_dansk; ?></td>
+                    <td align="left"><?php echo $bruger->sidste_login; ?></td>
                     <td><?php echo $bruger->bruger_brugernavn; ?></td>
                     <td><?php echo $bruger->beskrivelse_kort; ?>...</td>
                     <td><?php echo $bruger->konto_saldo; ?></td>
@@ -99,7 +99,8 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
                                 <i class="fa fa-trash-o fa-lg fa-fw"></i>
                             </a>
                         <?php }
-                        ?></td>
+                        ?>
+                    </td>
                 </tr>
                 <?php
             } //.slut-while-løkke
