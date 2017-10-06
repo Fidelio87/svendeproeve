@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2017 at 10:40 PM
+-- Generation Time: Oct 06, 2017 at 01:28 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -128,16 +128,15 @@ CREATE TABLE `brugere` (
 --
 
 INSERT INTO `brugere` (`bruger_id`, `bruger_status`, `bruger_oprettet`, `bruger_sidste_login`, `bruger_brugernavn`, `bruger_beskrivelse`, `bruger_password`, `bruger_img`, `fk_rolle_id`) VALUES
-(1, 1, '2017-10-02 19:10:51', '2017-10-05 16:08:20', 'admin', 'all hail the admin', '$2y$10$1X9ITA0jvKlr9ZeY9QWnVu5EpIJ02S94/TTLbYelGNOgnvWaCKpm.', NULL, 2),
-(2, 1, '2017-10-04 09:11:39', '2017-10-05 16:22:57', 'Pelle', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$Vggoka7PkifC.qOGK.PERebLsQ1yK25iDz85SDEbIg0AWJcArDwKW', '1507108299_nerd.jpeg', 1),
-(3, 1, '2017-10-05 12:23:10', '2017-10-05 12:23:10', 'HelterSkelter', '<p>Lorem ipsum dol<em>or sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explic</em>abo non quasi repellat. Accusamu<strong>s aliqua</strong>m iure sunt!</p>\r\n', '$2y$11$gQgPmhA.kxI3rIwRP1hnhe9NWHj13tWGxmJcqGU3w1gVKr9QWKqNK', '1507206190_blackwhite.jpeg', 1),
-(6, 1, '2017-10-05 14:39:39', '2017-10-05 15:36:02', 'PolleFraSnave', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$EF1.NzfuOMISlkgcqkQlce6A82SaTlUF3Kudw/4jdpAMbeGmL5Hgi', '1507214379_profile_img.png', 1),
-(7, 1, '2017-10-05 15:23:28', '2017-10-05 15:23:28', 'PerSyvspring', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$Y.U6sXHP0/Ib4QIV/iK4u.mR0phe79z1wp4jOsvoqStkEe3wpL1OO', '1507217008_viewImage.jpg', 1),
-(8, 1, '2017-10-05 15:27:53', '2017-10-05 15:27:53', 'Sandkassens Konge', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$O75wpInbDEGh5jr2F4MR2ODELFI2Sxg6evD..sxbLTP4lUuP7O322', '1507217273_profile_photo.jpg', 1),
+(1, 1, '2017-10-02 19:10:51', '2017-10-06 11:28:14', 'admin', 'all hail the admin', '$2y$10$1X9ITA0jvKlr9ZeY9QWnVu5EpIJ02S94/TTLbYelGNOgnvWaCKpm.', NULL, 2),
+(2, 1, '2017-10-04 09:11:39', '2017-10-06 11:28:09', 'Pelle', '<p>Jeg er en fodboldn&oslash;rd fra <strong>Nr. Snede</strong> der elsker reagae. Hvis det skal v&aelig;re dansk skal det v&aelig;re Rasmus N&oslash;hr, han er bare for sej :-)</p>\r\n', '$2y$11$Vggoka7PkifC.qOGK.PERebLsQ1yK25iDz85SDEbIg0AWJcArDwKW', '1507268290_imala.jpg', 1),
+(3, 1, '2017-10-05 12:23:10', '2017-10-06 08:32:58', 'HelterSkelter', '<p>Lorem ipsum dol<em>or sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explic</em>abo non quasi repellat. Accusamu<strong>s aliqua</strong>m iure sunt!</p>\r\n', '$2y$11$gQgPmhA.kxI3rIwRP1hnhe9NWHj13tWGxmJcqGU3w1gVKr9QWKqNK', '1507206190_blackwhite.jpeg', 1),
+(6, 1, '2017-10-05 14:39:39', '2017-10-06 08:35:12', 'PolleFraSnave', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$EF1.NzfuOMISlkgcqkQlce6A82SaTlUF3Kudw/4jdpAMbeGmL5Hgi', '1507268371_profile-img.png', 1),
+(7, 1, '2017-10-05 15:23:28', '2017-10-06 08:36:33', 'PerSyvspring', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$Y.U6sXHP0/Ib4QIV/iK4u.mR0phe79z1wp4jOsvoqStkEe3wpL1OO', '1507217008_viewImage.jpg', 1),
+(8, 1, '2017-10-05 15:27:53', '2017-10-06 08:48:57', 'Sandkassens Konge', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$O75wpInbDEGh5jr2F4MR2ODELFI2Sxg6evD..sxbLTP4lUuP7O322', '1507217273_profile_photo.jpg', 1),
 (9, 1, '2017-10-05 15:43:01', '2017-10-05 15:43:20', 'Razzzmuzzz', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$V0HhYSaxXFpwNPsgh7SL3.iGJhhnRCqoWXOqg8WFUp/2ZDD68WSiC', '1507218181_1065-IMG_2529.jpg', 1),
 (10, 1, '2017-10-05 15:44:24', NULL, 'BeatNick9', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$UvBxJpovFSXjn/Ro.P9NEOza.l9pnOAzfX9hP3akfT5sP0VwAxhO6', '1507218263_Profile1.gif', 1),
-(11, 1, '2017-10-05 15:45:04', NULL, 'T-Bird Man', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$6cohkSp2cQw.5X8QbeFGPOL8f7u.P4m7pGai6tPU8Iz/sPLUYY7KK', '1507218304_user2.jpg', 1),
-(12, 1, '2017-10-05 16:07:22', '2017-10-05 16:08:12', 'Diego87', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamu<em>s aliquam i</em>ure sunt!</p>\r\n', '$2y$11$cAx2ZiaD3y0wTY5rdKOfney63B.dvwLvj1npNrqCopChacuIR.tX6', '1507219642_profiles-web-11.png', 1);
+(11, 1, '2017-10-05 15:45:04', NULL, 'T-Bird Man', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$6cohkSp2cQw.5X8QbeFGPOL8f7u.P4m7pGai6tPU8Iz/sPLUYY7KK', '1507218304_user2.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -195,15 +194,14 @@ CREATE TABLE `konti` (
 --
 
 INSERT INTO `konti` (`konto_id`, `konto_saldo`, `fk_bruger_id`) VALUES
-(1, 1500, 2),
-(2, 1500, 3),
-(3, 1500, 6),
-(4, 1500, 7),
-(5, 1500, 8),
+(1, 1400, 2),
+(2, 1350, 3),
+(3, 1400, 6),
+(4, 1400, 7),
+(5, 1400, 8),
 (6, 1500, 9),
 (7, 1500, 10),
-(8, 1500, 11),
-(9, 1500, 12);
+(8, 1500, 11);
 
 -- --------------------------------------------------------
 
@@ -278,13 +276,35 @@ INSERT INTO `logs` (`log_id`, `log_tid`, `log_beskrivelse`, `fk_bruger_id`, `fk_
 (73, '2017-10-05 15:45:04', 'Der blev indsat 1500 grunker på en ny konto med id 8', 1, 1),
 (74, '2017-10-05 16:01:10', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
 (75, '2017-10-05 16:02:27', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
-(76, '2017-10-05 16:07:22', 'Profil med id 12 blev oprettet', 12, 1),
 (77, '2017-10-05 16:07:23', 'Der blev indsat 1500 grunker på en ny konto med id 9', 1, 1),
 (78, '2017-10-05 16:07:29', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
-(79, '2017-10-05 16:08:12', 'Brugeren \"Diego87\" med id 12 loggede ind', 12, 4),
 (80, '2017-10-05 16:08:20', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
 (81, '2017-10-05 16:11:52', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
-(82, '2017-10-05 16:22:57', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4);
+(82, '2017-10-05 16:22:57', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(83, '2017-10-06 05:39:18', 'Brugeren \"PolleFraSnave\" med id 6 loggede ind', 6, 4),
+(84, '2017-10-06 05:39:31', 'Profilen blev redigeret', 6, 2),
+(85, '2017-10-06 07:17:41', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(86, '2017-10-06 08:18:50', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(88, '2017-10-06 08:32:05', 'Bruger købte album med id 6', 2, 1),
+(89, '2017-10-06 08:32:58', 'Brugeren \"HelterSkelter\" med id 3 loggede ind', 3, 4),
+(90, '2017-10-06 08:34:09', 'Bruger købte album med id 5', 3, 1),
+(91, '2017-10-06 08:35:12', 'Brugeren \"PolleFraSnave\" med id 6 loggede ind', 6, 4),
+(92, '2017-10-06 08:35:22', 'Bruger købte album med id 7', 6, 1),
+(93, '2017-10-06 08:35:45', 'Bruger købte album med id 7', 6, 1),
+(94, '2017-10-06 08:36:33', 'Brugeren \"PerSyvspring\" med id 7 loggede ind', 7, 4),
+(95, '2017-10-06 08:36:37', 'Bruger købte album med id 8', 7, 1),
+(96, '2017-10-06 08:48:57', 'Brugeren \"Sandkassens Konge\" med id 8 loggede ind', 8, 4),
+(97, '2017-10-06 08:49:10', 'Bruger købte album med id 9', 8, 1),
+(106, '2017-10-06 09:13:51', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(109, '2017-10-06 09:36:27', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(110, '2017-10-06 10:04:59', 'En bruger blev slettet', 1, 3),
+(112, '2017-10-06 10:08:07', 'Der blev indsat 1500 grunker på en ny konto med id 12', 1, 1),
+(116, '2017-10-06 10:09:16', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(117, '2017-10-06 10:09:27', 'En bruger blev slettet', 1, 3),
+(118, '2017-10-06 10:27:33', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(119, '2017-10-06 10:28:59', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(120, '2017-10-06 11:28:09', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(121, '2017-10-06 11:28:14', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -377,7 +397,8 @@ INSERT INTO `sider` (`side_id`, `side_status`, `side_url`, `side_nav_sortering`,
 (4, 1, 'profil', 4, 1, 'Min Profil', 'Din profil', NULL, 4),
 (5, 1, 'kontakt', 5, 1, 'Kontakt', 'Kontakt DJ Grunk og hans venner', 'Hvis du har spørgsmål eller til DJ Grunk eller en af hans venner på biblioteket er du velkommen til at komme forbi. Vi har åbent på biblioteket alle hver- og lørdage. 					\r\nDu kan ogås ringe eller skrive, eller brug formularen nederst til højre så skal vi nok sørge for at DJ Grunk får din besked.					\r\n', 5),
 (6, 1, 'opret-profil', 11, 0, NULL, 'Opret en profil', '', 6),
-(7, 1, 'rediger-profil', 15, 0, NULL, 'Rediger din profil', '', 7);
+(7, 1, 'rediger-profil', 15, 0, NULL, 'Rediger din profil', '', 7),
+(8, 1, 'album', 22, 0, NULL, 'Albumvisning', '', 8);
 
 -- --------------------------------------------------------
 
@@ -402,7 +423,8 @@ INSERT INTO `side_includes` (`side_include_id`, `side_include_navn`, `side_inclu
 (4, 'profil', 'profil.php'),
 (5, 'kontakt', 'kontakt.php'),
 (6, 'opret profil', 'opret-profil.php'),
-(7, 'rediger profil', 'rediger-profil.php');
+(7, 'rediger profil', 'rediger-profil.php'),
+(8, 'album', 'album.php');
 
 -- --------------------------------------------------------
 
@@ -443,6 +465,17 @@ CREATE TABLE `transaktioner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `transaktioner`
+--
+
+INSERT INTO `transaktioner` (`id`, `timestamp`, `fk_konto_id`, `fk_album_id`) VALUES
+(2, '2017-10-06 08:32:05', 1, 6),
+(3, '2017-10-06 08:34:09', 2, 5),
+(4, '2017-10-06 08:35:22', 3, 7),
+(6, '2017-10-06 08:36:37', 4, 8),
+(7, '2017-10-06 08:49:10', 5, 9);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -465,8 +498,8 @@ ALTER TABLE `albums`
 --
 ALTER TABLE `anmeldelser`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_album_id` (`fk_album_id`),
-  ADD KEY `fk_bruger_id` (`fk_bruger_id`);
+  ADD KEY `anmeldelser_ibfk_1` (`fk_album_id`),
+  ADD KEY `anmeldelser_ibfk_2` (`fk_bruger_id`);
 
 --
 -- Indexes for table `brugere`
@@ -571,7 +604,7 @@ ALTER TABLE `anmeldelser`
 -- AUTO_INCREMENT for table `brugere`
 --
 ALTER TABLE `brugere`
-  MODIFY `bruger_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `bruger_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `genrer`
 --
@@ -586,12 +619,12 @@ ALTER TABLE `kontakt`
 -- AUTO_INCREMENT for table `konti`
 --
 ALTER TABLE `konti`
-  MODIFY `konto_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `konto_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 --
 -- AUTO_INCREMENT for table `log_typer`
 --
@@ -611,12 +644,12 @@ ALTER TABLE `roller`
 -- AUTO_INCREMENT for table `sider`
 --
 ALTER TABLE `sider`
-  MODIFY `side_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `side_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `side_includes`
 --
 ALTER TABLE `side_includes`
-  MODIFY `side_include_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `side_include_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tidspunkter`
 --
@@ -626,7 +659,7 @@ ALTER TABLE `tidspunkter`
 -- AUTO_INCREMENT for table `transaktioner`
 --
 ALTER TABLE `transaktioner`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- Constraints for dumped tables
 --
@@ -642,8 +675,8 @@ ALTER TABLE `albums`
 -- Constraints for table `anmeldelser`
 --
 ALTER TABLE `anmeldelser`
-  ADD CONSTRAINT `anmeldelser_ibfk_1` FOREIGN KEY (`fk_album_id`) REFERENCES `albums` (`album_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `anmeldelser_ibfk_2` FOREIGN KEY (`fk_bruger_id`) REFERENCES `brugere` (`bruger_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `anmeldelser_ibfk_1` FOREIGN KEY (`fk_album_id`) REFERENCES `albums` (`album_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `anmeldelser_ibfk_2` FOREIGN KEY (`fk_bruger_id`) REFERENCES `brugere` (`bruger_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `brugere`

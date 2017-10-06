@@ -143,4 +143,30 @@ checkAccess();
             </a>
         </div>
     </div>
+</div>'
+<div class="row">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <h2>Systemlog</h2>
+        <?php
+
+        $query = 'SELECT * FROM logs
+                  INNER JOIN log_typer ON logs.fk_log_type = log_typer.log_type_id
+                  INNER JOIN brugere ON logs.fk_bruger_id = brugere.bruger_id
+                  ORDER BY log_tid DESC';
+        $result = $db->query($query);
+
+        while ($row = $result->fetch_object()) {
+            ?>
+            <details class="bg-<?php echo $row->log_type_css; ?>">
+                <summary>#<?php echo $row->log_id; ?> - <span class="text-capitalize"><?php echo $row->log_type_navn; ?></span></summary>
+                <p><em><?php echo $row->log_tid; ?></em></p>
+                <p class="small"><em><?php echo $row->log_beskrivelse; ?></em></p>
+                <p>Aktør: <strong><?php echo $row->bruger_brugernavn;?></strong></p>
+            </details>
+        <?php
+        }
+
+        ?>
+
+    </div>
 </div>
