@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2017 at 11:44 PM
+-- Generation Time: Oct 05, 2017 at 10:40 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -115,7 +115,7 @@ CREATE TABLE `brugere` (
   `bruger_id` mediumint(8) UNSIGNED NOT NULL,
   `bruger_status` tinyint(1) UNSIGNED DEFAULT '1',
   `bruger_oprettet` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `bruger_sidste_login` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `bruger_sidste_login` timestamp NULL DEFAULT NULL,
   `bruger_brugernavn` varchar(50) NOT NULL,
   `bruger_beskrivelse` text,
   `bruger_password` varchar(255) NOT NULL,
@@ -128,8 +128,16 @@ CREATE TABLE `brugere` (
 --
 
 INSERT INTO `brugere` (`bruger_id`, `bruger_status`, `bruger_oprettet`, `bruger_sidste_login`, `bruger_brugernavn`, `bruger_beskrivelse`, `bruger_password`, `bruger_img`, `fk_rolle_id`) VALUES
-(1, 1, '2017-10-02 19:10:51', '2017-10-04 19:11:53', 'admin', 'all hail the admin', '$2y$10$1X9ITA0jvKlr9ZeY9QWnVu5EpIJ02S94/TTLbYelGNOgnvWaCKpm.', NULL, 2),
-(2, 1, '2017-10-04 09:11:39', '2017-10-04 19:54:43', 'Pelle', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$Vggoka7PkifC.qOGK.PERebLsQ1yK25iDz85SDEbIg0AWJcArDwKW', '1507108299_nerd.jpeg', 1);
+(1, 1, '2017-10-02 19:10:51', '2017-10-05 16:08:20', 'admin', 'all hail the admin', '$2y$10$1X9ITA0jvKlr9ZeY9QWnVu5EpIJ02S94/TTLbYelGNOgnvWaCKpm.', NULL, 2),
+(2, 1, '2017-10-04 09:11:39', '2017-10-05 16:22:57', 'Pelle', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$Vggoka7PkifC.qOGK.PERebLsQ1yK25iDz85SDEbIg0AWJcArDwKW', '1507108299_nerd.jpeg', 1),
+(3, 1, '2017-10-05 12:23:10', '2017-10-05 12:23:10', 'HelterSkelter', '<p>Lorem ipsum dol<em>or sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explic</em>abo non quasi repellat. Accusamu<strong>s aliqua</strong>m iure sunt!</p>\r\n', '$2y$11$gQgPmhA.kxI3rIwRP1hnhe9NWHj13tWGxmJcqGU3w1gVKr9QWKqNK', '1507206190_blackwhite.jpeg', 1),
+(6, 1, '2017-10-05 14:39:39', '2017-10-05 15:36:02', 'PolleFraSnave', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$EF1.NzfuOMISlkgcqkQlce6A82SaTlUF3Kudw/4jdpAMbeGmL5Hgi', '1507214379_profile_img.png', 1),
+(7, 1, '2017-10-05 15:23:28', '2017-10-05 15:23:28', 'PerSyvspring', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$Y.U6sXHP0/Ib4QIV/iK4u.mR0phe79z1wp4jOsvoqStkEe3wpL1OO', '1507217008_viewImage.jpg', 1),
+(8, 1, '2017-10-05 15:27:53', '2017-10-05 15:27:53', 'Sandkassens Konge', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$O75wpInbDEGh5jr2F4MR2ODELFI2Sxg6evD..sxbLTP4lUuP7O322', '1507217273_profile_photo.jpg', 1),
+(9, 1, '2017-10-05 15:43:01', '2017-10-05 15:43:20', 'Razzzmuzzz', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$V0HhYSaxXFpwNPsgh7SL3.iGJhhnRCqoWXOqg8WFUp/2ZDD68WSiC', '1507218181_1065-IMG_2529.jpg', 1),
+(10, 1, '2017-10-05 15:44:24', NULL, 'BeatNick9', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$UvBxJpovFSXjn/Ro.P9NEOza.l9pnOAzfX9hP3akfT5sP0VwAxhO6', '1507218263_Profile1.gif', 1),
+(11, 1, '2017-10-05 15:45:04', NULL, 'T-Bird Man', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamus aliquam iure sunt!</p>\r\n', '$2y$11$6cohkSp2cQw.5X8QbeFGPOL8f7u.P4m7pGai6tPU8Iz/sPLUYY7KK', '1507218304_user2.jpg', 1),
+(12, 1, '2017-10-05 16:07:22', '2017-10-05 16:08:12', 'Diego87', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi maiores quos recusandae ullam. Accusamus commodi cupiditate delectus dolores eaque et exercitationem explicabo non quasi repellat. Accusamu<em>s aliquam i</em>ure sunt!</p>\r\n', '$2y$11$cAx2ZiaD3y0wTY5rdKOfney63B.dvwLvj1npNrqCopChacuIR.tX6', '1507219642_profiles-web-11.png', 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +195,15 @@ CREATE TABLE `konti` (
 --
 
 INSERT INTO `konti` (`konto_id`, `konto_saldo`, `fk_bruger_id`) VALUES
-(1, 1500, 2);
+(1, 1500, 2),
+(2, 1500, 3),
+(3, 1500, 6),
+(4, 1500, 7),
+(5, 1500, 8),
+(6, 1500, 9),
+(7, 1500, 10),
+(8, 1500, 11),
+(9, 1500, 12);
 
 -- --------------------------------------------------------
 
@@ -242,7 +258,33 @@ INSERT INTO `logs` (`log_id`, `log_tid`, `log_beskrivelse`, `fk_bruger_id`, `fk_
 (48, '2017-10-04 19:11:53', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
 (50, '2017-10-04 19:34:09', 'Albummet med id 21 blev redigeret', 1, 2),
 (51, '2017-10-04 19:40:59', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
-(52, '2017-10-04 19:54:43', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4);
+(52, '2017-10-04 19:54:43', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(53, '2017-10-05 11:15:58', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(54, '2017-10-05 12:22:49', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(55, '2017-10-05 12:23:10', 'Brugeren med id 3 blev oprettet', 1, 1),
+(56, '2017-10-05 12:23:10', 'Brugeren med id 3 fik overførst 1500 grunker til sin nye konto', 1, 1),
+(60, '2017-10-05 14:39:40', 'Profil med id 6 blev oprettet', 6, 1),
+(61, '2017-10-05 15:23:28', 'Profil med id 7 blev oprettet', 7, 1),
+(63, '2017-10-05 15:27:53', 'Profil med id 8 blev oprettet', 8, 1),
+(64, '2017-10-05 15:27:54', 'Der blev indsat 1500 grunker på en ny konto med id 5', 1, 1),
+(65, '2017-10-05 15:35:55', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(66, '2017-10-05 15:36:02', 'Brugeren \"PolleFraSnave\" med id 6 loggede ind', 6, 4),
+(67, '2017-10-05 15:43:01', 'Profil med id 9 blev oprettet', 9, 1),
+(68, '2017-10-05 15:43:01', 'Der blev indsat 1500 grunker på en ny konto med id 6', 1, 1),
+(69, '2017-10-05 15:43:20', 'Brugeren \"Razzzmuzzz\" med id 9 loggede ind', 9, 4),
+(70, '2017-10-05 15:44:24', 'Profil med id 10 blev oprettet', 10, 1),
+(71, '2017-10-05 15:44:24', 'Der blev indsat 1500 grunker på en ny konto med id 7', 1, 1),
+(72, '2017-10-05 15:45:04', 'Profil med id 11 blev oprettet', 11, 1),
+(73, '2017-10-05 15:45:04', 'Der blev indsat 1500 grunker på en ny konto med id 8', 1, 1),
+(74, '2017-10-05 16:01:10', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(75, '2017-10-05 16:02:27', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(76, '2017-10-05 16:07:22', 'Profil med id 12 blev oprettet', 12, 1),
+(77, '2017-10-05 16:07:23', 'Der blev indsat 1500 grunker på en ny konto med id 9', 1, 1),
+(78, '2017-10-05 16:07:29', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(79, '2017-10-05 16:08:12', 'Brugeren \"Diego87\" med id 12 loggede ind', 12, 4),
+(80, '2017-10-05 16:08:20', 'Brugeren \"admin\" med id 1 loggede ind', 1, 4),
+(81, '2017-10-05 16:11:52', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4),
+(82, '2017-10-05 16:22:57', 'Brugeren \"Pelle\" med id 2 loggede ind', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -334,7 +376,8 @@ INSERT INTO `sider` (`side_id`, `side_status`, `side_url`, `side_nav_sortering`,
 (3, 1, 'anmeldelser', 3, 1, 'Anmeldelser', 'Anmeldelser af musik', NULL, 3),
 (4, 1, 'profil', 4, 1, 'Min Profil', 'Din profil', NULL, 4),
 (5, 1, 'kontakt', 5, 1, 'Kontakt', 'Kontakt DJ Grunk og hans venner', 'Hvis du har spørgsmål eller til DJ Grunk eller en af hans venner på biblioteket er du velkommen til at komme forbi. Vi har åbent på biblioteket alle hver- og lørdage. 					\r\nDu kan ogås ringe eller skrive, eller brug formularen nederst til højre så skal vi nok sørge for at DJ Grunk får din besked.					\r\n', 5),
-(6, 1, 'opret-profil', 11, 0, NULL, 'Opret en profil', '', 6);
+(6, 1, 'opret-profil', 11, 0, NULL, 'Opret en profil', '', 6),
+(7, 1, 'rediger-profil', 15, 0, NULL, 'Rediger din profil', '', 7);
 
 -- --------------------------------------------------------
 
@@ -358,7 +401,8 @@ INSERT INTO `side_includes` (`side_include_id`, `side_include_navn`, `side_inclu
 (3, 'anmeldelser', 'anmeldelser.php'),
 (4, 'profil', 'profil.php'),
 (5, 'kontakt', 'kontakt.php'),
-(6, 'opret bruger', 'opret-profil.php');
+(6, 'opret profil', 'opret-profil.php'),
+(7, 'rediger profil', 'rediger-profil.php');
 
 -- --------------------------------------------------------
 
@@ -517,7 +561,7 @@ ALTER TABLE `adresser`
 -- AUTO_INCREMENT for table `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `album_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `album_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `anmeldelser`
 --
@@ -527,7 +571,7 @@ ALTER TABLE `anmeldelser`
 -- AUTO_INCREMENT for table `brugere`
 --
 ALTER TABLE `brugere`
-  MODIFY `bruger_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `bruger_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `genrer`
 --
@@ -542,12 +586,12 @@ ALTER TABLE `kontakt`
 -- AUTO_INCREMENT for table `konti`
 --
 ALTER TABLE `konti`
-  MODIFY `konto_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `konto_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 --
 -- AUTO_INCREMENT for table `log_typer`
 --
@@ -567,12 +611,12 @@ ALTER TABLE `roller`
 -- AUTO_INCREMENT for table `sider`
 --
 ALTER TABLE `sider`
-  MODIFY `side_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `side_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `side_includes`
 --
 ALTER TABLE `side_includes`
-  MODIFY `side_include_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `side_include_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tidspunkter`
 --

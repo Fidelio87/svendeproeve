@@ -31,11 +31,26 @@ if (isset($_SESSION['bruger']['id']) && !is_admin()) {
                 <a href="?page=anmeldelser&bruger_id=<?php echo $bruger->bruger_id; ?>"> Læs anmeldelser</a>
                 <h4>Seneste køb</h4>
                 <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                    <?php
+                    $query_liste = 'SELECT timestamp, album_id, album_kunstner, album_titel FROM transaktioner
+                                    LEFT JOIN konti ON transaktioner.fk_konto_id = konti.konto_id
+                                    INNER JOIN albums ON transaktioner.fk_album_id = albums.album_id
+                                    WHERE fk_konto_id = (SELECT konto_id FROM konti WHERE fk_bruger_id = ' . $id. ')
+                                    ORDER BY timestamp';
+                    $result_liste = $db->query($query_liste);
+
+                    if (!$result_liste) { query_error($query_liste, __LINE__, __FILE__); }
+
+                    while   ($row_liste = $result_liste->fetch_object()) {
+                        ?>
+                        <li class="list-group-item"><strong><a href="index.php?page=album&id=<?php
+                                echo $row_liste->album_id; ?>"><?php
+                                echo $row_liste->album_titel; ?></a></strong> - <em><?php
+                                echo $row_liste->album_kunstner; ?></em></li>
+                        <hr>
+                        <?php
+                    }
+                    ?>
                 </ul>
         </div>
         </div>

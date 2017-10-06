@@ -43,7 +43,7 @@ Accusamus aliquam iure sunt!';
         $sidste_bruger_id = $db->insert_id;
 
 
-        set_log('opret', 'Brugeren med id ' . $sidste_bruger_id . ' blev oprettet');
+        set_log('opret', 'Brugeren med id ' . $sidste_bruger_id . ' blev oprettet', 1);
 
 
         $query = 'INSERT INTO konti (konto_saldo, fk_bruger_id) VALUES (1500, ' . $sidste_bruger_id . ')';
@@ -51,7 +51,7 @@ Accusamus aliquam iure sunt!';
         if (!$result) { query_error($query, __LINE__, __FILE__); }
 
 
-        set_log('opret', 'Brugeren med id ' . $sidste_bruger_id . ' fik overførst 1500 grunker til sin nye konto');
+        set_log('opret', 'Brugeren med id ' . $sidste_bruger_id . ' fik overførst 1500 grunker til sin nye konto', 1);
 
     }
 

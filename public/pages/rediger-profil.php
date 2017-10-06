@@ -19,22 +19,75 @@ $row = $result->fetch_object();
 
 <?php
 
-$bruger_id          = $row->bruger_id;
-$brugernavn          = $row->bruger_brugernavn;
-$beskrivelse        = $row->bruger_beskrivelse;
+$bruger_id      = $row->bruger_id;
+$brugernavn     = $row->bruger_brugernavn;
+$beskrivelse    = $row->bruger_beskrivelse;
+$img            = $row->bruger_img;
 
-if (isset($_POST['rediger_bruger'])) {
+if (isset($_POST['rediger_profil'])) {
+    $img = $_FILES['img'];
 
-    $beskrivelse = $db->real_escape_string($_POST['beskrivelse']);
-    $fil = $_FILES['img'];
-
-
-    if (file_exists('../img/albums/' . $row_gl->album_img) &&
-        file_exists('../img/albums/thumbs' . $row_gl->album_img)) {
-        unlink($img_dir . $row_gl->album_img);
-        unlink($img_dir_thumbs . $row_gl->album_img);
+    if (empty($_POST['beskrivelse'])) {
+        $beskrivelse = '';
+    } else {
+        $beskrivelse = $db->real_escape_string($_POST['beskrivelse']);
     }
 
+    if (isset($img) && !empty($img['tmp_name'])) {
+        $query_gl_img  = 'SELECT bruger_id, bruger_img FROM brugere WHERE bruger_id = ' . $id;
+        $result_gl_img = $db->query($query_gl_img);
+        $row_gl = $result_gl_img->fetch_object();
+
+        if (!$result_gl_img) {
+            query_error($query_gl_img, __LINE__, __FILE__);
+        }
+
+        if (file_exists('img/brugere/' . $row_gl->bruger_img) &&
+            file_exists('img/brugere/thumbs/' . $row_gl->bruger_img)) {
+            unlink('img/brugere/' . $row_gl->bruger_img);
+            unlink('img/brugere/thumbs/' . $row_gl->bruger_img);
+        }
+
+        //bliver brugt i queryen
+        $filnavn = time() . '_' . $db->real_escape_string($img['name']);
+
+        $img_sql = ', bruger_img = "' . $filnavn . '"';
+
+        $img = $manager->make($img['tmp_name']);
+
+        //gemmer alm billede
+        //gemmer alm billede
+        $img->resize(768, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+
+        $img->save('img/brugere/' . $filnavn);
+
+        //gemmer thumbnail billede
+        $img->resize(88, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+
+        $img->save('img/brugere/thumbs' . $filnavn);
+    } else {
+        $img_sql = '';
+    }
+
+    $query = "UPDATE brugere SET bruger_beskrivelse = '$beskrivelse'
+                                $img_sql
+                  WHERE bruger_id = $id";
+    $result = $db->query($query);
+
+    if (!$result) { query_error($query, __LINE__, __FILE__); }
+
+    if ($db->affected_rows >= 1) {
+        alert('success', 'Dine ændringer blev gemt');
+        set_log('opdater', 'Profilen blev redigeret', $id);
+    } else {
+        alert('warning', 'Ups, noget gik galt');
+    }
 }
 
 ?>

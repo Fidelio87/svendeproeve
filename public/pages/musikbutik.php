@@ -114,8 +114,9 @@ while ($row = $result->fetch_object()) {
             <div class="caption">
                 <h3><?php echo $row->album_titel; ?></h3>
                 <p><?php echo $row->album_kunstner; ?></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                    <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="index.php?page=album&id=<?php
+                    echo $row->album_id; ?>" class="btn btn-info" role="button">Se album</a>
+<!--                    <a href="#" class="btn btn-default" role="button">Button</a>--></p>
             </div>
         </div>
     </div>

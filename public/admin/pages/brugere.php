@@ -9,21 +9,69 @@ checkAccess();
 if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
     $id = (int)$_GET['slet_id'];
 
-    $query = 'SELECT bruger_img
+    $query_gl_img = 'SELECT bruger_img
               FROM brugere
               WHERE bruger_id = ' . $id;
-    $result = $db->query($query);
+    $result_gl_img = $db->query($query_gl_img);
 
-    if (!$result) { query_error($query, __LINE__, __FILE__); }
+    if (!$result_gl_img) { query_error($query_gl_img, __LINE__, __FILE__); }
 
-    $row = $result->fetch_object();
+    $row_gl_img = $result_gl_img->fetch_object();
+
+    var_dump($row_gl_img);
     //hvis der er et billede tilknyttet brugeren, slettes de
-    if (isset($row->bruger_img)) {
-        unlink('../img/personer/' . $row->bruger_img);
-        unlink('../img/personer/thumbs/' . $row->bruger_img);
+    if (isset($row_gl_img->bruger_img)) {
+         if (file_exists('img/brugere/' . $row_gl_img->bruger_img)) {
+             unlink('../img/personer/' . $row_gl_img->bruger_img);
+         }
+         if (file_exists('img/brugere/thumbs/' . $row_gl->bruger_img)) {
+             unlink('../img/personer/thumbs/' . $row_gl_img->bruger_img);
+         }
     }
 
-    // TODO delete all related table entries
+    $query_konto = 'SELECT konto_id FROM konti WHERE fk_bruger_id = ' . $id;
+    $result_konto = $db->query($query_konto);
+
+    if (!$result_konto) { query_error($query_konto, __LINE__, __FILE__); }
+
+    $row_konto = $result_konto->fetch_object();
+
+    $konto_id = $row_konto->konto_id;
+
+    $query_count_trans = 'SELECT COUNT(id) FROM transaktioner WHERE fk_konto_id = ' . $konto_id;
+
+    $result_count_trans = $db->query($query_count_trans);
+
+    if (!$result_count_trans) { query_error($query_count_trans, __LINE__, __FILE__); }
+
+
+    $rows_count_trans = $result_count_trans->fetch_object();
+
+    if ($rows_count_trans > 0) {
+        $query_del_trans = 'DELETE FROM transaktioner WHERE fk_konto_id = ' . $konto_id;
+
+        $result_del_trans = $db->query($query_del_trans);
+
+        if (!$result_del_trans) { query_error($query_del_trans, __LINE__, __FILE__); }
+    }
+
+    $query_del_konto = 'DELETE FROM konti WHERE fk_bruger_id = ' . $id;
+
+    $result_del_konto = $db->query($query_del_konto);
+    if (!$result_del_konto) { query_error($query_del_konto, __LINE__, __FILE__); }
+
+    $query_del_anm = 'DELETE FROM anmeldelser WHERE fk_bruger_id = ' . $id;
+    $result_del_anm = $db->query($query_del_anm);
+
+    if (!$result_del_anm) { query_error($query_del_anm, __LINE__, __FILE__); }
+
+    $query_del_logs = 'DELETE FROM logs WHERE fk_bruger_id = ' . $id;
+
+    $result_del_logs = $db->query($query_del_logs);
+
+    var_dump($query_del_logs);
+
+    if (!$result_del_logs) { query_error($query_del_logs, __LINE__, __FILE__); }
 
     $query = 'DELETE FROM brugere WHERE bruger_id = ' . $id;
 
@@ -32,10 +80,10 @@ if (isset($_GET['slet_id']) && $_GET['slet_id'] !== $_SESSION['bruger']['id']) {
     if (!$result) { query_error($query, __LINE__, __FILE__); }
 
     if ($db->affected_rows >= 1) {
-        set_log('slet', 'En bruger blev slettet');
+        set_log('slet', 'En bruger blev slettet', 1);
     }
 
-    redirect_to('index.php?page=' . $side);
+//    redirect_to('index.php?page=' . $side);
 }
 
 ?>

@@ -98,7 +98,7 @@ checkAccess();
                     ?>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo $row->anmeldelse_antal; ?></div>
-                        <div class="text-info">Anmeldelse<?php if ($row->anmeldelse_antal > 1) { echo 'r'; } ?>
+                        <div class="text-info">Anmeldelse<?php if ($row->anmeldelse_antal > 1 || $row->anmeldelse_antal == 0) { echo 'r'; } ?>
                         </div>
                     </div>
                 </div>
