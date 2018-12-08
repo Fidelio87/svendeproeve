@@ -9,7 +9,7 @@
 <script src="../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="../bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.da.js"></script>
 <!-- Googles prettyprint -->
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify/loader/run_prettify.js"></script>
 <script>
 
     $('#date-picker.input-daterange').datepicker({
